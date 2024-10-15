@@ -1,0 +1,2 @@
+module MidtownHelper
+end

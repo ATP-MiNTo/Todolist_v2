@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @catego %>
+
+<div>
+  <%= link_to "Edit this catego", edit_catego_path(@catego) %> |
+  <%= link_to "Back to categos", categos_path %>
+
+  <%= button_to "Destroy this catego", @catego, method: :delete %>
+</div>

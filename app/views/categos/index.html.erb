@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Categos" %>
+
+<h1>Categos</h1>
+
+<div id="categos">
+  <% @categos.each do |catego| %>
+    <%= render catego %>
+    <p>
+      <%= link_to "Show this catego", catego %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New catego", new_catego_path %>
