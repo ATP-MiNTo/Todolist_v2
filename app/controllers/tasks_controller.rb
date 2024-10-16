@@ -6,6 +6,14 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def incomplete
+    @task = Task.where(status: 0)
+  end
+
+  def complete
+    @task = Task.where(status: 1)
+  end
+
   # GET /tasks/1 or /tasks/1.json
   def show
   end
@@ -47,6 +55,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def toggle_status
+    @task = Task.find(params[:id])
+    @task.update(status: @task.status == 1 ? 0 : 1)
+    redirect_to tasks_path, notice: "Task status updated."
+  end
+  
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
     @task.destroy!
