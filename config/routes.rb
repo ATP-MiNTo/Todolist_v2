@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   resources :categos
-  resources :tasks
+  resources :tasks do
+    member do
+      get :toggle_status
+    end
+  end
 
-  root "tasks#index"
+  root "midtown#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
