@@ -18,12 +18,14 @@
 
   <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
+    <%= form.select :status, options_for_select([['Ongoing', 'ongoing'], ['Complete', 'complete']], @task.status) %>
   </div>
+
+
 
   <div>
     <%= form.label :category, style: "display: block" %>
-    <%= form.select :category_id, options_from_collection_for_select(Category.all, 'id', 'name') %>
+    <%= form.select :catego_id, options_from_collection_for_select(Catego.all, 'id', 'name') %>
   </div>
 
   <div>
