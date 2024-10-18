@@ -2,6 +2,22 @@
 
 <%= render @catego %>
 
+<h2>Tasks in this Category:</h2>
+<div id="tasks">
+  <% if @catego.tasks.present? %>
+    <% @catego.tasks.each do |task| %>
+      <div>
+        <%= render task %>
+        <p>
+          <%= link_to "Show this task", task %>
+        </p>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No tasks found in this category.</p>
+  <% end %>
+</div>
+
 <div>
   <%= link_to "Edit this catego", edit_catego_path(@catego) %> |
   <%= link_to "Back to categos", categos_path %>
