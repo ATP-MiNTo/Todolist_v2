@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
 
     collection do
-      get :complete
+      get :complet
       get :incomplete
     end
   end
