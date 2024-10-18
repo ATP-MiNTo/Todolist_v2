@@ -9,9 +9,10 @@
     <%= render task %>
     <p>
       <%= link_to "Show this task", task %>
+      <%= link_to task.status == 1 ? "Mark as Incomplete" : "Mark as Complete", toggle_status_task_path(task)%>
     </p>
   <% end %>
 </div>
 
-<%= link_to "Home", home_midtown_path %>
+<%= link_to "Home", root_path %>
 <%= link_to "New task", new_task_path %>
