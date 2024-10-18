@@ -1,2 +1,4 @@
 class Catego < ApplicationRecord
-end
+    has_many :tasks
+  end
+  
