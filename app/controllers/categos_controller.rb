@@ -1,25 +1,21 @@
 class CategosController < ApplicationController
   before_action :set_catego, only: %i[ show edit update destroy ]
+  before_action :default_category, only: %i[ index new create ]
 
-  # GET /categos or /categos.json
   def index
     @categos = Catego.all
   end
 
-  # GET /categos/1 or /categos/1.json
   def show
   end
 
-  # GET /categos/new
   def new
     @catego = Catego.new
   end
 
-  # GET /categos/1/edit
   def edit
   end
 
-  # POST /categos or /categos.json
   def create
     @catego = Catego.new(catego_params)
 
@@ -34,7 +30,6 @@ class CategosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /categos/1 or /categos/1.json
   def update
     respond_to do |format|
       if @catego.update(catego_params)
@@ -47,7 +42,6 @@ class CategosController < ApplicationController
     end
   end
 
-  # DELETE /categos/1 or /categos/1.json
   def destroy
     @catego.destroy!
 
@@ -58,12 +52,14 @@ class CategosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def default_category
+      Catego.find_or_create_by(name: 'All')
+    end
+
     def set_catego
       @catego = Catego.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def catego_params
       params.require(:catego).permit(:name)
     end
