@@ -7,14 +7,15 @@ class TasksController < ApplicationController
   end
 
   def incomplete
-    @task = Task.where(status: 0)
+    @task = Task.where(status: ongoing)
   end
 
-  def complete
-    @task = Task.where(status: 1)
+  def complet
+    @task = Task.where(status: complete)
   end
 
   def show
+    @task = Task.find(params[:id])
   end
 
   def new
@@ -27,8 +28,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
-    @task.catego = Catego.find_or_create_by(name: 'All')
-
+    if @task.catego_id.present?
+      @task.catego = Catego.find(@task.catego_id)
+    end
+  
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }
@@ -51,11 +54,14 @@ class TasksController < ApplicationController
       end
     end
   end
+  
 
   def toggle_status
     @task = Task.find(params[:id])
-    @task.update(status: @task.status == 1 ? 0 : 1)
-    redirect_to tasks_path, notice: "Task status updated."
+    @task.toggle_status
+  
+    notice_message = @task.complete? ? 'Task marked as Complete.' : 'Task marked as On going.'
+    redirect_to tasks_path, notice: notice_message
   end
   
   def destroy
