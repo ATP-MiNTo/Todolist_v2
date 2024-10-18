@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   resources :categos
+
   resources :tasks do
     member do
       get :toggle_status
+    end
+
+    collection do
+      get :complete
+      get :incomplete
     end
   end
 
