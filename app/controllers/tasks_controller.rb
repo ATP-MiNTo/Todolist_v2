@@ -3,7 +3,16 @@ class TasksController < ApplicationController
   before_action :default_category, only: %i[ new create ]
 
   def index
-    @tasks = Task.all
+    @tasks = if params[:category_id].present?
+      Task.where(category_id: params[:category_id])
+    else
+      Task.all
+    end
+
+    respond_to do |format|
+    format.html
+    format.turbo_stream
+    end
   end
 
   def incomplete

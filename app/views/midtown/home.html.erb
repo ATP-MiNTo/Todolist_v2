@@ -1,5 +1,5 @@
 <head>
-    <link rel="application" type="text/css" href="application.css">
+    <link rel="stylesheet" type="text/css" href="application.css">
 </head>
 <body>
     <header>
@@ -26,6 +26,18 @@
         
         <div>
             <%= link_to "Show category", categos_path %>
+        </div>
+
+        <div>
+            <%= form_with url: tasks_path, method: :get, local: false, data: { turbo_frame: "tasks" } do |form| %>
+                <%= form.label :category %>
+                <%= form.select :catego_id, options_for_select(Catego.all.pluck(:name, :id), params[:catego_id]), include_blank: true %>
+                <%= form.submit "Filter" %>
+            <% end %>
+            
+            <turbo-frame id="tasks">
+                <%= render partial: "task", locals: { tasks: @tasks } %>
+            </turbo-frame>
         </div>
 
     </main>
