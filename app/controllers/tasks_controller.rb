@@ -7,11 +7,11 @@ class TasksController < ApplicationController
   end
 
   def incomplete
-    @task = Task.where(status: ongoing)
+    @task = Task.where(status: :'ongoing')
   end
 
   def complet
-    @task = Task.where(status: complete)
+    @task = Task.where(status: :'complete')
   end
 
   def show
@@ -27,21 +27,25 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-
+  
     if @task.catego_id.present?
       @task.catego = Catego.find(@task.catego_id)
     end
+  
+    Rails.logger.info("Task params: #{task_params.inspect}")
   
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
+        Rails.logger.error("Task errors: #{@task.errors.full_messages}")
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
+  
 
   def update
     respond_to do |format|

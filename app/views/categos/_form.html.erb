@@ -1,4 +1,4 @@
-<%= form_with(model: catego) do |form| %>
+<%= form_with(model: catego, local: true) do |form| %>
   <% if catego.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(catego.errors.count, "error") %> prohibited this catego from being saved:</h2>
